@@ -10,5 +10,5 @@ import java.util.UUID;
  * Diálogo modal para agregar un nuevo contacto.
  */
 public class AddContactDialog extends JDialog {
-
+    private final JTextField nameField = new JTextField(20);
 }
