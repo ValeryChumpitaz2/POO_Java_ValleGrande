@@ -28,6 +28,57 @@ public class UsuarioView extends JFrame {
         titulo.setFont(new Font("Segoe UI", Font.BOLD, 18));
         titulo.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
         panel.add(titulo, BorderLayout.NORTH);
+// 📝 Campos + botones
+        JTextField txtNombre = new JTextField(10);
+        JTextField txtCorreo = new JTextField(10);
+
+        JButton btnAgregar = new JButton("Agregar");
+        JButton btnEliminar = new JButton("Eliminar");
+
+        JPanel panelTop = new JPanel();
+        panelTop.setBackground(Color.WHITE);
+
+        panelTop.add(new JLabel("Nombre:"));
+        panelTop.add(txtNombre);
+        panelTop.add(new JLabel("Correo:"));
+        panelTop.add(txtCorreo);
+        panelTop.add(btnAgregar);
+        panelTop.add(btnEliminar);
+
+// ⬇️ IMPORTANTE: usar SOUTH para no borrar el título
+        panel.add(panelTop, BorderLayout.SOUTH);
+
+        // ➕ AGREGAR
+        btnAgregar.addActionListener(e -> {
+            String nombre = txtNombre.getText();
+            String correo = txtCorreo.getText();
+
+            controller.agregarUsuario(nombre, correo);
+
+            modelo.setRowCount(0);
+            cargarDatos();
+
+            txtNombre.setText("");
+            txtCorreo.setText("");
+        });
+
+// 🗑️ ELIMINAR
+        btnEliminar.addActionListener(e -> {
+            int fila = tabla.getSelectedRow();
+
+            if (fila == -1) {
+                JOptionPane.showMessageDialog(null, "Seleccione una fila");
+                return;
+            }
+
+            int id = (int) modelo.getValueAt(fila, 0);
+
+            controller.eliminarUsuario(id);
+
+            modelo.setRowCount(0);
+            cargarDatos();
+        });
+
 
         // 📊 Tabla
         modelo = new DefaultTableModel(
