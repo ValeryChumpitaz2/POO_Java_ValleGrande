@@ -36,6 +36,32 @@ public class UsuarioDAO {
 
         return lista;
     }
+    public void insertar(Usuario u) {
+        try {
+            Connection con = ConexionBD.getConexion();
+            String sql = "INSERT INTO usuario(nombre, correo) VALUES (?, ?)";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, u.getNombre());
+            ps.setString(2, u.getCorreo());
 
+            ps.executeUpdate();
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void eliminar(int id) {
+        try {
+            Connection con = ConexionBD.getConexion();
+            String sql = "DELETE FROM usuario WHERE id = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
-
