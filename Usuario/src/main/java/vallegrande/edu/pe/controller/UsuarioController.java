@@ -11,5 +11,16 @@
         public List <Usuario> obtenerUsuarios(){
             return dao.listar();
         }
+        //INSERTAR
+        public void agregarUsuario(String nombre, String correo){
+            Usuario u = new Usuario();
+            u.setNombre(nombre);
+            u.setCorreo(correo);
 
+            dao.insertar(u);
+        }
+        //ELIMINAR
+        public void eliminarUsuario(int id){
+            dao.eliminar(id);
+        }
     }
